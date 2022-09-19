@@ -18,14 +18,14 @@ The grpc part, is a little more convoluted. Since Kubernetes doesn't support grp
 
 You can find the docker image here: https://hub.docker.com/repository/docker/cfarrugia/k8s-echo-server
 
-And use it as follows:
+And use it as follows:  
 
-`
-docker pull cfarrugia/k8s-echo-server
-docker run -p 8888:80 --name my-fake-k8s-service -it cfarrugia/k8s-echo-server
-`
+`docker pull cfarrugia/k8s-echo-server`  
+`docker run -p 8888:80 --name my-fake-k8s-service -it cfarrugia/k8s-echo-server`
 
 If you run something like: `http://localhost:8888/healthz/live` you should always get a 200 Status
 
-If you run this command: `docker exec my-fake-k8s-service2 /bin/grpc_health_probe` absolutely nothing should happen, and that's ok! It's because the fake health check ran and returned a status code of 0. 
+If you run this command:  
+`docker exec my-fake-k8s-service /bin/grpc_health_probe`  
+absolutely nothing should happen, and that's ok! It's because the fake health check ran and returned a status code of 0. 
 
