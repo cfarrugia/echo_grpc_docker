@@ -14,3 +14,18 @@ The http echo is simply the image base, and gotten from: https://hub.docker.com/
 
 The grpc part, is a little more convoluted. Since Kubernetes doesn't support grpc health checks natively, we can use the methodolody in here: https://github.com/grpc-ecosystem/grpc-health-probe. Now, what we're doing here is simple: we're creating a dummy application in C (literally does nothing else than returning an exit code of 0). 
 
+## Usage
+
+You can find the docker image here: https://hub.docker.com/repository/docker/cfarrugia/k8s-echo-server
+
+And use it as follows:
+
+`
+docker pull cfarrugia/k8s-echo-server
+docker run -p 8888:80 --name my-fake-k8s-service -it cfarrugia/k8s-echo-server
+`
+
+If you run something like: `http://localhost:8888/healthz/live` you should always get a 200 Status
+
+If you run this command: `docker exec my-fake-k8s-service2 /bin/grpc_health_probe` absolutely nothing should happen, and that's ok! It's because the fake health check ran and returned a status code of 0. 
+
